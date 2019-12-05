@@ -53,6 +53,13 @@
     "@testing-library/dom": "^6.10.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
+    "@types/styled-components": "^4.4.0",
+    "@typescript-eslint/eslint-plugin": "^2.8.0",
+    "@typescript-eslint/parser": "^2.8.0",
+    "@types/jest": "24.0.23",
+    "@types/node": "12.12.12",
+    "@types/react": "16.9.13",
+    "@types/react-dom": "16.9.4",
     "babel-eslint": "9.x",
     "babel-jest": "^24.9.0",
     "commitizen": "^4.0.3",
@@ -93,7 +100,8 @@
     "rollup-plugin-size": "^0.2.1",
     "rollup-plugin-size-snapshot": "^0.10.0",
     "rollup-plugin-terser": "^5.1.2",
-    "snapshot-diff": "^0.6.1"
+    "snapshot-diff": "^0.6.1",
+    "typescript": "3.7.2"
   },
   "config": {
     "commitizen": {
