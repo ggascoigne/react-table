@@ -478,7 +478,7 @@ function Table<T extends object>({
               groupBy,
               expanded,
               filters,
-              selectedRowPaths,
+              selectedRowPaths: Array.from(selectedRowPaths),
             },
             null,
             2
