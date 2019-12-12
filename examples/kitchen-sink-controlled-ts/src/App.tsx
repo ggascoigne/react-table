@@ -315,14 +315,7 @@ function Table<T extends object>({
     nextPage,
     previousPage,
     setPageSize,
-    state: {
-      pageIndex,
-      pageSize,
-      groupBy,
-      expanded,
-      filters,
-      selectedRowPaths,
-    },
+    state: { pageIndex, pageSize, groupBy, expanded, filters, selectedRowIds },
   } = useTable<T>(
     {
       columns,
@@ -478,7 +471,7 @@ function Table<T extends object>({
               groupBy,
               expanded,
               filters,
-              selectedRowPaths: Array.from(selectedRowPaths),
+              selectedRowPaths: Array.from(selectedRowIds),
             },
             null,
             2
