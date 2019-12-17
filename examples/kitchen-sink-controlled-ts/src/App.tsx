@@ -8,6 +8,7 @@ import {
   FilterValue,
   HeaderGroup,
   HeaderProps,
+  Hooks,
   IdType,
   Row,
   useExpanded,
@@ -339,7 +340,34 @@ function Table<T extends object>({
     useSortBy,
     useExpanded,
     usePagination,
-    useRowSelect
+    useRowSelect,
+    (hooks: Hooks<T>) => {
+      hooks.flatColumns.push(columns => [
+        {
+          id: 'selection',
+          // Make this column a groupByBoundary. This ensures that groupBy columns
+          // are placed after it
+          groupByBoundary: true,
+          // The header can use the table's getToggleAllRowsSelectedProps method
+          // to render a checkbox
+          Header: ({
+            getToggleAllRowsSelectedProps,
+          }: HeaderProps<PersonData>) => (
+            <div>
+              <input type="checkbox" {...getToggleAllRowsSelectedProps()} />
+            </div>
+          ),
+          // The cell can use the individual row's getToggleRowSelectedProps method
+          // to the render a checkbox
+          Cell: ({ row }: CellProps<PersonData>) => (
+            <div>
+              <input type="checkbox" {...row.getToggleRowSelectedProps()} />
+            </div>
+          ),
+        },
+        ...columns,
+      ])
+    }
   )
 
   // Render the UI for your table
@@ -469,9 +497,9 @@ function Table<T extends object>({
               canNextPage,
               canPreviousPage,
               groupBy,
-              expanded,
+              expanded: expanded,
               filters,
-              selectedRowPaths: Array.from(selectedRowIds),
+              selectedRowIds: selectedRowIds,
             },
             null,
             2
@@ -516,30 +544,8 @@ function roundedMedian(values: any[]) {
 }
 
 function App() {
-  const columns = React.useMemo(
+  const columns = React.useMemo<Column<PersonData>[]>(
     () => [
-      {
-        id: 'selection',
-        // Make this column a groupByBoundary. This ensures that groupBy columns
-        // are placed after it
-        groupByBoundary: true,
-        // The header can use the table's getToggleAllRowsSelectedProps method
-        // to render a checkbox
-        Header: ({
-          getToggleAllRowsSelectedProps,
-        }: HeaderProps<PersonData>) => (
-          <div>
-            <input type="checkbox" {...getToggleAllRowsSelectedProps()} />
-          </div>
-        ),
-        // The cell can use the individual row's getToggleRowSelectedProps method
-        // to the render a checkbox
-        Cell: ({ row }: CellProps<PersonData>) => (
-          <div>
-            <input type="checkbox" {...row.getToggleRowSelectedProps()} />
-          </div>
-        ),
-      },
       {
         Header: 'Name',
         columns: [
