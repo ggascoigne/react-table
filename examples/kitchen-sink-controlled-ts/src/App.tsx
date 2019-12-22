@@ -1,12 +1,10 @@
 import matchSorter from 'match-sorter'
 import React, { ChangeEvent } from 'react'
 import {
-  Cell,
   CellProps,
   Column,
   FilterProps,
   FilterValue,
-  HeaderGroup,
   HeaderProps,
   Hooks,
   IdType,
@@ -375,7 +373,7 @@ function Table<T extends object>({
     <>
       <table {...getTableProps()}>
         <thead>
-          {headerGroups.map((headerGroup: HeaderGroup<T>) => (
+          {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
                 <th {...column.getHeaderProps()}>
@@ -404,11 +402,11 @@ function Table<T extends object>({
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {page.map((row: Row<T>) => {
+          {page.map(row => {
             prepareRow(row)
             return (
               <tr {...row.getRowProps()}>
-                {row.cells.map((cell: Cell<T>) => {
+                {row.cells.map(cell => {
                   return (
                     <td {...cell.getCellProps()}>
                       {cell.isGrouped ? (
@@ -513,11 +511,11 @@ function Table<T extends object>({
 // Define a custom filter filter function!
 function filterGreaterThan(
   rows: Array<Row<any>>,
-  id: IdType<any>,
+  id: Array<IdType<any>>,
   filterValue: FilterValue
 ) {
   return rows.filter(row => {
-    const rowValue = row.values[id]
+    const rowValue = row.values[id[0]]
     return rowValue >= filterValue
   })
 }
